@@ -165,10 +165,10 @@ end
 function draw_data()
   print("versuchsdaten",40,10,8)
 
-  print("dichte oel: 900 kg/m^3",10,40,18)
-  print("viskositaet: 18e-6 kg/(ms)",10,50,18 )
-  print("plattenabstand: 5e-3 m",10,60,18)
-  print("skalenabstand: 2.72e-5 m",10,70,18)
+  print("dichte oel: 900 KG/M^3",10,40,18)
+  print("viskositaet: 18e-6 KG/(MS)",10,50,18 )
+  print("plattenabstand: 5e-3 M",10,60,18)
+  print("skalenabstand: 2.72e-5 M",10,70,18)
   print("weiter mit x",40,100,10)
 
 end
