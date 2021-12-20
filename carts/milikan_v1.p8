@@ -1,5 +1,5 @@
 pico-8 cartridge // http://www.pico-8.com
-version 30
+version 34
 __lua__
 function _init()
 cls()
@@ -130,13 +130,15 @@ function draw_time()
  end
   for i = 2, #t do
   local dt = flr((t[i]-t[i-1])*100)/100
-  print(dt,100,i*6,10)
+  print(dt,100,50-i*6,10)
+  print("S",120,50-i*6,10)
  end
  local t1 = 0
  if #t>0 then
   t1 = t[#t]
  end
  print(flr((time()-t1)*100)/100,100,110,10)
+ print("S", 120,110,10)
 end
 -->8
 --menu
