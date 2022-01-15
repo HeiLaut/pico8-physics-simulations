@@ -125,13 +125,14 @@ function draw_current()
 end
 
 function draw_time()
- if #t == 7 then
+ if #t == 6 then
   del(t,t[1])
  end
   for i = 2, #t do
+  local col=10
   local dt = flr((t[i]-t[i-1])*100)/100
-  print(dt,100,50-i*6,10)
-  print("S",120,50-i*6,10)
+  print(dt,100,i*6,col)
+  print("S",120,i*6,col)
  end
  local t1 = 0
  if #t>0 then
