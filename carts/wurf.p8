@@ -13,11 +13,13 @@ function _init()
  res=true
  
  --x0,y0,v0,w0=0,115,5,50
-	create_kugel(0,115,5,45) 
-
-
+	create_kugel(0,114,3,45,0,5) 
+	dia1 = {}
+	dia2 = {}
+	d1c = 1
+	d2c = 1
 end
-
+	
 function _update()
 	--t+=1
  update_kugel()
@@ -27,13 +29,14 @@ function _draw()
  draw_kugel()
 end
 -->8
-function create_kugel(_x,_y,_v,_w)
+function create_kugel(_x,_y,_v,_w,_c,_m)
  k = {
  x = _x,
  y = _y,
  v = _v,
  w = _w,
- c=0.05,
+ c=_c,
+ m=_m,
  ddx = 0,
  ddy = 0
 }
@@ -46,11 +49,11 @@ end
 function draw_kugel()
 		cls()
 		local sp = 1
-		
-		plot(x,y,20,30,107,20,12,
+		plot(x,y,15,35,107,25,12,
 							"","x",false)
+		
 							
-		plot(x2,y2,20,60,107,25,12,
+		plot(x2,y2,15,65,107,25,12,
 							"t","y",false)
 		if (k.x>128/5) sp =2
 		if (k.x>128*2/5) sp =3
@@ -78,11 +81,11 @@ function update_kugel()
 -- if (btnp(❎)) and not play then 
 --  
 -- end
- 
+ dia1 = {{"x",k.x},{"vx",k.dx},{"ax",k.ddx}}
+ dia2 = {{"y",-k.y},{"vy",-k.dy},{"ay",-k.ddy}}
  if play then
- 	 t+=1
-
-		-- direction for calulating the friction
+ 	t+=1
+  -- direction for calulating the friction
 	 local dirx,diry = 1,1
 	 -- calculating speed
 	 k.x += k.dx
@@ -99,19 +102,19 @@ function update_kugel()
 	 end
 	 
 	--acceleration
-	 k.ddy = g-diry* k.c*abs(k.dy)--^2
-	 k.ddx = dirx* k.c*abs(k.dx)--^2
+	 k.ddy = g-diry*k.c/k.m*abs(k.dy)^2
+	 k.ddx = dirx*k.c/k.m*abs(k.dx)^2
 	 k.dy += k.ddy
 	 k.dx -= k.ddx
 	
 		-- adding data to the plot arrays
 		add(x,t)
-	 add(y,k.x)
+	 add(y,dia1[d1c][2])
 	
 		add(x2,t)
-		add(y2,-k.y)
+		add(y2,dia2[d2c][2])
 		if k.y>114 then
-		 k.y=115
+		 k.y=114
 			play = false
 			t=0
 		end
@@ -145,9 +148,9 @@ function plot(_x,_y,_x2,_y2,_w,_h,_col,_lx,_ly,_sca)
 	 local y_min=max_list(_y)[2]
 	 
 	 --make sure to plot also a plot with slope = 0
-	 if y_max == y_min then
+	 if y_max == y_min and y_min>0 then
 	 	y_max +=2
-	 	y_min -=2
+	 	y_min -=1
   end
 	 
 	 --resizeing the data
@@ -178,7 +181,7 @@ function plot(_x,_y,_x2,_y2,_w,_h,_col,_lx,_ly,_sca)
 		
 	print(_lx,_x2+_w/2,_y2+2,7)
  print(_ly,_x2-10,_y2-_h/2,7)
-	rect(_x2,_y2,_x2+_w,_y2-_h-1,8)
+	rect(_x2,_y2+1,_x2+_w,_y2-_h-1,8)
 
  
  
@@ -202,20 +205,29 @@ end
 --controls
 function draw_controls()
 	local var=
-		{"x:","y:","v:","w:"}
+		{"x:","y:","v:","w:","c:","m:","d1:","d2:"}
 	local pos=
 	 {3,33,63,93}
 	rectfill(0,0,128,6,8)
-	rectfill(0,122,128,128,8)
+	rectfill(0,121,128,128,8)
 	
 	if res then
-		rectfill(pos[c]-1,0,pos[c]+20,6,7)
+	 if c<5 then
+			rectfill(pos[c]-1,0,pos[c]+20,6,7)
+	 else
+	 	rectfill(pos[c-4]-1,121,pos[c-4]+25,128,7)
+  end
 	end
 	
 	print(var[1]..flr(k.x),pos[1],1,2)
-	print(var[2]..flr(115-k.y),pos[2],1,2)
+	print(var[2]..flr(114-k.y),pos[2],1,2)
 	print(var[3]..round(k.v,3),pos[3],1,2)
 	print(var[4]..round(k.w,1),pos[4],1,2)
+
+	print(var[5]..round(k.c,2),pos[1],122,2)
+	print(var[6]..k.m,pos[2],122,2)
+	print(var[7]..dia1[d1c][1],pos[3],122,2)
+	print(var[8]..dia2[d2c][1],pos[4],122,2)
 
 end
 
@@ -226,14 +238,14 @@ function controls()
  	--calculate start vel
  	calc_vel()
   
-  x0,y0,v0,w0=k.x,k.y,k.v,k.w
+  x0,y0,v0,w0,c0,m0=k.x,k.y,k.v,k.w,k.c,k.m
   play = true
   res = false
   
  end
  
  if btnp(🅾️) and not(play or res) then
-		create_kugel(x0,y0,v0,w0)
+		create_kugel(x0,y0,v0,w0,c0,m0)
 		reset_dia_data()
 		res = true 
 	end
@@ -246,6 +258,10 @@ function controls()
 			if(c==2)k.y-=1
 			if(c==3)k.v+=1
 			if(c==4)k.w+=5
+			if(c==5)k.c+=0.011
+			if(c==6)k.m+=1
+			if(c==7)d1c+=1
+			if(c==8)d2c+=1
 		end
 		
 		if(btnp(⬇️))then
@@ -253,21 +269,31 @@ function controls()
 			if(c==2)k.y+=1
 			if(c==3)k.v-=1
 			if(c==4)k.w-=5
+			if(c==5)k.c-=0.011
+			if(c==6)k.m-=1
+			if(c==7)d1c-=1
+			if(c==8)d2c-=1
 		end
 		calc_vel()
-		c=mid(1,c,4)	
+		c=mid(1,c,8)	
 		k.x=mid(0,k.x,30)
-		k.y=mid(20,k.y,115)
+		k.y=mid(20,k.y,114)
 		k.v=mid(0,k.v,15)
 		k.w=mid(-90,k.w,90)
+		k.c=mid(0,k.c,0.5)
+		k.m=mid(1,k.m,20)
+		d1c=mid(1,d1c,3)
+		d2c=mid(1,d2c,3)
 	end
 end
 
-function round(z,d)
- return flr((z)*d)/d
-end
+
 -->8
 -- helper
+function round(z,d)
+ local dig = 10^d
+ return flr((z)*dig)/dig
+end
 
 function reset_dia_data()
 	x,x2={},{}
