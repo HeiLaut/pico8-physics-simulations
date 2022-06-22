@@ -5,6 +5,8 @@ They also work without any problems on any smartphone, so that every student can
 
 The control (except for Milikan) works via the cursor keys (set and change sizes) and the c and x keys. With "P" you can pause and reset the simulation.
 
+I'm sure there are many more simulations on these topics on the net, but I haven't found any in 8-bit optics yet. 
+
 All simulations were created with pico8.
 https://www.lexaloffle.com/pico-8.php
 
