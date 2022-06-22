@@ -16,6 +16,7 @@
 ## Electron in magnetic field
 
 [Magnetic field](https://heilaut.github.io/pico8-physics-simulations/html/b-field.html)
+
 [Schuster - simplified version of Magnetic field]((https://heilaut.github.io/pico8-physics-simulations/html/schuster.html)
 
 ## Photoelectric effect
