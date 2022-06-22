@@ -1,5 +1,7 @@
 # pico8-physics-simulations
 
+All experiments can be used in physics lessons for demonstration and also for quantitative experiments.
+They also work without any problems on any smartphone, so that every student can work with the simulations themselves.
 
 ## Throwing motion
 
