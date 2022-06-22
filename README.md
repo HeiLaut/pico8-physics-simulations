@@ -65,3 +65,9 @@ Int - intensity
 U_G - Countervoltage
 
 [Photoelectric effect](https://heilaut.github.io/pico8-physics-simulations/html/photoeffekt.html)
+
+
+----
+
+Github Page: https://github.com/HeiLaut/pico8-physics-simulations
+Licence: https://github.com/HeiLaut/pico8-physics-simulations/blob/main/licence
