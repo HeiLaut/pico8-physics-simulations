@@ -209,14 +209,14 @@ function draw_controls()
 	
 	if res then
 	 if c<5 then
-			rectfill(pos[c]-1,0,pos[c]+20,6,7)
+			rectfill(pos[c]-1,0,pos[c]+23,6,7)
 	 else
 	 	rectfill(pos[c-4]-1,121,pos[c-4]+25,128,7)
   end
 	end
 	
-	print("x:"..flr(k.x),pos[1],1,2)
-	print("y:"..flr(114-k.y),pos[2],1,2)
+	print("x:"..flr(k.x)/100,pos[1],1,2)
+	print("y:"..flr(114-k.y)/100,pos[2],1,2)
 	print("v:"..round(k.v,3),pos[3],1,2)
 	print("w:"..round(k.w,1),pos[4],1,2)
 
@@ -252,7 +252,7 @@ function controls()
 		if(btnp(⬆️))then
 			if(c==1)k.x+=1
 			if(c==2)k.y-=1
-			if(c==3)k.v+=1
+			if(c==3)k.v+=0.5
 			if(c==4)k.w+=5
 			if(c==5)k.c+=0.011
 			if(c==6)k.m+=1
@@ -263,7 +263,7 @@ function controls()
 		if(btnp(⬇️))then
 			if(c==1)k.x-=1
 			if(c==2)k.y+=1
-			if(c==3)k.v-=1
+			if(c==3)k.v-=0.5
 			if(c==4)k.w-=5
 			if(c==5)k.c-=0.011
 			if(c==6)k.m-=1
