@@ -8,7 +8,7 @@ The control (except for Milikan) works via the cursor keys (set and change sizes
 I'm sure there are many more simulations on these topics on the net, but I haven't found any in 8-bit optics yet. 
 
 All simulations were created with pico8.
-https://www.lexaloffle.com/pico-8.php
+[https://www.lexaloffle.com/](https://www.lexaloffle.com/pico-8.php)
 
 ## Throwing motion!
 
