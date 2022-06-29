@@ -69,15 +69,16 @@ function draw_kugel()
 	 	
  	--draw ball
  	spr(sp,k.x,k.y)
- 	if not play and not res then
+ 	if not play and not res and k.dy==0 then
  		print("press c/🅾️ to reset",25,80,7)
- 	elseif not play then
+ 	elseif not play and k.dy==0 then
  		print("press x/❎ to start",25,80,7)
 		end
 		if parachute and t>t_pc then
 			spr(sp_p[sp_p_n],k.x-5,k.y-15,2,2)
 		end
 		draw_controls()
+		print("t:"..flr(t/30*10)/10,105,110,12)
 
 end
 
@@ -116,8 +117,9 @@ function update_kugel()
 		add(y2,dia1[d2c][2])
 		if k.y>114 then
 		 k.y=114
+		 k.dy=0
+		 k.dx=0
 			play = false
-			t=0
 		end
 		if k.x>121 or k.x<0 then
 			k.dx=-k.dx
@@ -245,15 +247,20 @@ function draw_controls()
 end
 
 function controls()
-	if btnp(❎) 
- and play==false
- and res==true then
- 	--calculate start vel
- 	calc_vel()
-  
-  x0,y0,v0,w0,c0,m0=k.x,k.y,k.v,k.w,k.c,k.m
-  play = true
-  res = false
+	if btnp(❎) then
+ 	if play==false
+	 	and res==true then
+	 	--calculate start vel
+	 		calc_vel()
+	  
+	  	x0,y0,v0,w0,c0,m0=k.x,k.y,k.v,k.w,k.c,k.m
+	  	play = true
+	  	res = false
+  	elseif play then
+   	play = false
+   elseif k.dy!=0 then
+  		play = true
+  end
   
  end
  
@@ -261,6 +268,7 @@ function controls()
 		create_kugel(x0,y0,v0,w0,c0,m0)
 		reset_dia_data()
 		res = true 
+		t=0
 	end
 	if res then
 		if(btnp(➡️)) c+=1
@@ -333,6 +341,7 @@ function  parachutejump()
 		k.v=0
 		k.c=0.05
 		k.x=5
+		k.w=0
 		parachute = true
 		res=true
 		play=false
