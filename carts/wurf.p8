@@ -17,6 +17,9 @@ function _init()
 	dia1 = {}
 	d1c = 1
 	d2c = 4
+	--x-axis value
+	diax = "t"
+	
 	sp_p={17,19,21,23}
 	sp_p_n=1
 	t_pc=30
@@ -55,7 +58,7 @@ function draw_kugel()
 		
 							
 		plot(x2,y2,15,65,107,25,12,
-							"t",dia1[d2c][1],false)
+							diax,dia1[d2c][1],false)
 		if (k.x>128/5) sp =2
 		if (k.x>128*2/5) sp =3
 		if (k.x>128*3/5) sp =4
@@ -71,7 +74,7 @@ function draw_kugel()
  	spr(sp,k.x,k.y)
  	if not play and not res and k.dy==0 then
  		print("press c/🅾️ to reset",25,80,7)
- 	elseif not play and k.dy==0 then
+ 	elseif not play and t==0 then
  		print("press x/❎ to start",25,80,7)
 		end
 		if parachute and t>t_pc then
@@ -110,10 +113,16 @@ function update_kugel()
 	 k.dx -= k.ddx
 	
 		-- adding data to the plot arrays
-		add(x,t)
+		if diax=="x" then
+			add(x,k.x)
+			add(x2,k.x)
+		else
+			add(x,t)
+			add(x2,t)
+		end
+		
 	 add(y,dia1[d1c][2])
 	
-		add(x2,t)
 		add(y2,dia1[d2c][2])
 		if k.y>114 then
 		 k.y=114
@@ -278,7 +287,7 @@ function controls()
 			if(c==1)k.x+=1
 			if(c==2)k.y-=1
 			if(c==3)k.v+=0.5
-			if(c==4)k.w+=5
+			if(c==4)k.w+=1
 			if(c==5)k.c+=0.011
 			if(c==6)k.m+=1
 			if(c==7)d1c+=1
@@ -289,7 +298,7 @@ function controls()
 			if(c==1)k.x-=1
 			if(c==2)k.y+=1
 			if(c==3)k.v-=0.5
-			if(c==4)k.w-=5
+			if(c==4)k.w-=1
 			if(c==5)k.c-=0.011
 			if(c==6)k.m-=1
 			if(c==7)d1c-=1
@@ -335,6 +344,14 @@ menuitem(1,"parachute on/off",function()
  parachutejump()
 end)
 
+menuitem(2,"x-data t/x",function()
+	if diax=="t" then
+		diax="x"
+	else
+		diax="t"
+	end
+end)	
+
 function  parachutejump()
  if not parachute then
 		k.y=10
@@ -349,9 +366,12 @@ function  parachutejump()
 		reset_dia_data()
 		d1c = 4
 		d2c = 5
+		diax="t"
 	else _init()
 	end
 end
+
+
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 0000000000aa770000aa7a0000a77a0000a7aa000077aa0000000000000000000000000000000000000000000000000000000000000000000000000000000000
