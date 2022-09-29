@@ -243,8 +243,8 @@ function draw_controls()
   end
 	end
 	
-	print("x:"..flr(k.x)/100,pos[1],1,2)
-	print("y:"..flr(114-k.y)/100,pos[2],1,2)
+	print("x:"..flr(k.x)/10,pos[1],1,2)
+	print("y:"..flr(114-k.y)/10,pos[2],1,2)
 	print("v:"..round(k.v,3),pos[3],1,2)
 	print("w:"..round(k.w,1),pos[4],1,2)
 
